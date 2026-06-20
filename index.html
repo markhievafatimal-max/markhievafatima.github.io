@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 Коран Онлайн — Изучение Ислама</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2243/2243575.png">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/2243/2243575.png" alt="Ислам">
+                <span>📖 Коран Онлайн</span>
+                <span class="logo-badge">🌙</span>
+            </div>
+            <nav>
+                <button onclick="showTab('tajweed')" class="active">📚 Таджвид</button>
+                <button onclick="showTab('waqf')">🚦 Вакф</button>
+                <button onclick="showTab('alphabet')">🔤 Алфавит</button>
+                <button onclick="showTab('numbers')">🔢 Цифры</button>
+                <button onclick="showTab('names')">🌟 99 имён</button>
+                <button onclick="showTab('dua')">🤲 Дуа</button>
+                <button onclick="showTab('questions')">❓ Викторина</button>
+                <button onclick="showTab('settings')">⚙️</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ВКЛАДКА: ПРАВИЛА ТАДЖВИДА -->
+    <section id="tab-tajweed" class="tab-content active">
+        <div class="section-header">
+            <h2>📚 Правила таджвида</h2>
+            <p>Научитесь правильно читать Коран с помощью наглядных примеров</p>
+            <div class="section-stats">
+                <span>📖 <strong>11</strong> правил</span>
+                <span>🎯 с примерами</span>
+                <span>🔊 с транскрипцией</span>
+            </div>
+        </div>
+        <div id="tajweedGrid" class="tajweed-grid"></div>
+    </section>
+
+    <!-- ВКЛАДКА: ЗНАКИ ОСТАНОВКИ -->
+    <section id="tab-waqf" class="tab-content">
+        <div class="section-header">
+            <h2>🚦 Знаки остановки в Коране</h2>
+            <p>Узнайте, где нужно останавливаться при чтении</p>
+            <div class="section-stats">
+                <span>🛑 <strong>8</strong> знаков</span>
+                <span>📖 с пояснениями</span>
+            </div>
+        </div>
+        <div id="waqfGrid" class="waqf-grid"></div>
+    </section>
+
+    <!-- ВКЛАДКА: АРАБСКИЙ АЛФАВИТ -->
+    <section id="tab-alphabet" class="tab-content">
+        <div class="section-header">
+            <h2>🔤 Арабский алфавит</h2>
+            <p>Изучите все 28 букв с подробным описанием произношения</p>
+            <div class="section-stats">
+                <span>🔤 <strong>28</strong> букв</span>
+                <span>📍 с махраджем</span>
+                <span>👄 подробное описание</span>
+            </div>
+        </div>
+        <div class="alphabet-intro">
+            <p><strong>Как читать таблицу:</strong> В первой колонке — буква, во второй — как она называется, в третьей — описание места выхода звука (махраж), в четвёртой — как произносить на русском.</p>
+        </div>
+        <div id="alphabetGrid" class="alphabet-grid"></div>
+    </section>
+
+    <!-- ВКЛАДКА: АРАБСКИЕ ЦИФРЫ -->
+    <section id="tab-numbers" class="tab-content">
+        <div class="section-header">
+            <h2>🔢 Арабские цифры</h2>
+            <p>Изучите арабские цифры от 1 до 1000+ с подробным объяснением</p>
+            <div class="section-stats">
+                <span>🔢 <strong>0-10</strong> основы</span>
+                <span>🧮 <strong>до 1000</strong> полный курс</span>
+                <span>📖 с примерами</span>
+            </div>
+        </div>
+        <div class="numbers-intro">
+            <p><strong>Важно!</strong> В арабском языке цифры пишутся слева направо (как в русском). В каждой карточке вы найдёте цифру, как она пишется, как произносится и пример использования.</p>
+        </div>
+        <div id="numbersGrid" class="numbers-grid"></div>
+    </section>
+
+    <!-- ВКЛАДКА: 99 ИМЁН АЛЛАХА — ДНЕВНИК РАЗМЫШЛЕНИЙ -->
+    <section id="tab-names" class="tab-content">
+        <div class="section-header">
+            <h2>🌟 99 имён Аллаха — Дневник размышлений</h2>
+            <p>«У Аллаха — самые прекрасные имена. Посему взывайте к Нему через них.» (Коран, 7:180)</p>
+            <div class="section-stats">
+                <span>🌟 <strong>99</strong> имён</span>
+                <span>📖 с размышлениями</span>
+                <span>🏆 сертификат</span>
+            </div>
+        </div>
+
+        <!-- ПРОГРЕСС ИЗУЧЕНИЯ -->
+        <div class="names-progress">
+            <div class="progress-header">
+                <span>📊 Прогресс изучения</span>
+                <span id="progressText">0 / 99</span>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-details">
+                <span>✅ Изучено: <strong id="studiedCount">0</strong></span>
+                <span>⏳ Осталось: <strong id="remainingCount">99</strong></span>
+                <span>🏆 Сертификат: <strong id="certificateStatus">🔒 Не получен</strong></span>
+            </div>
+            <button onclick="resetAllNames()" class="reset-names-btn">🔄 Сбросить прогресс</button>
+        </div>
+
+        <div class="names-navigation">
+            <button onclick="showPrevName()" class="nav-btn">◀</button>
+            <span class="name-counter" id="nameCounter">1 / 99</span>
+            <button onclick="showNextName()" class="nav-btn">▶</button>
+        </div>
+
+        <div class="name-slider" id="nameSlider">
+            <div class="name-slide" id="nameSlide">
+                <div class="name-number" id="slideNumber">#1</div>
+                <div class="name-arabic-big" id="slideArabic">اَللَّهُ</div>
+                <div class="name-transliteration-big" id="slideTransliteration">Аллах</div>
+                <div class="name-translation-big" id="slideTranslation">Бог, Единственный</div>
+                <div class="name-meaning-big" id="slideMeaning">Единственный Бог, достойный поклонения. Имя, которое объединяет все остальные имена. Он — Тот, без Кого ничто не существует, и всё существует только по Его воле.</div>
+                <div class="name-reflection">
+                    <h4>💭 Размышление</h4>
+                    <p id="slideReflection">Когда я произношу имя «Аллах», я осознаю, что есть только один Бог, достойный поклонения. Всё вокруг — Его творение, и я полностью завишу от Него. Я должен стремиться познавать Его, любить Его и поклоняться только Ему одному.</p>
+                </div>
+                <div class="name-application">
+                    <h4>📌 Как применять в жизни</h4>
+                    <p id="slideApplication">Начинай каждое дело с «Бисмиллях» (С именем Аллаха). Помни, что всё происходит по воле Аллаха. Обращайся к Нему во всех делах — и в радости, и в трудностях.</p>
+                </div>
+                <div class="name-dua">
+                    <h4>🤲 Дуа с этим именем</h4>
+                    <p id="slideDua">اَللَّهُمَّ بِاسْمِكَ أَعُوذُ بِكَ</p>
+                    <p class="dua-translation">Аллахумма бисмикя а'узу бикя — О Аллах, Твоим именем я ищу у Тебя защиты.</p>
+                </div>
+                <button onclick="toggleNameStudied()" class="study-btn" id="studyBtn">📖 Отметить как изученное</button>
+            </div>
+        </div>
+
+        <!-- СЕРТИФИКАТ -->
+        <div class="certificate-container" id="certificateContainer">
+            <div class="certificate">
+                <div class="certificate-header">
+                    <span>🌟</span>
+                    <h2>СЕРТИФИКАТ</h2>
+                    <span>🌟</span>
+                </div>
+                <div class="certificate-body">
+                    <p>Настоящим подтверждается, что</p>
+                    <h3 id="certUserName">Ученик</h3>
+                    <p>полностью изучил(а)</p>
+                    <h2>99 имён Аллаха</h2>
+                    <p>с размышлением и пониманием каждого имени.</p>
+                    <div class="certificate-date">
+                        <span>Дата: <span id="certDate"></span></span>
+                    </div>
+                </div>
+                <div class="certificate-footer">
+                    <span>🤲 Да смилостивится Аллах над нами</span>
+                </div>
+            </div>
+            <button onclick="downloadCertificate()" class="download-cert-btn">⬇️ Скачать сертификат</button>
+            <button onclick="shareCertificate()" class="share-cert-btn">📤 Поделиться</button>
+        </div>
+    </section>
+
+    <!-- ВКЛАДКА: ДУА ПРОРОКА -->
+    <section id="tab-dua" class="tab-content">
+        <div class="section-header">
+            <h2>🤲 Дуа Пророка Мухаммада (мир ему)</h2>
+            <p>Молитвы, которым научил нас Пророк — на все случаи жизни</p>
+            <div class="section-stats">
+                <span>📖 <strong>20+</strong> дуа</span>
+                <span>🌅 на все случаи</span>
+                <span>🤲 с транскрипцией</span>
+            </div>
+        </div>
+        <div class="dua-intro">
+            <p><strong>Как читать:</strong> В каждой карточке вы найдёте арабский текст, транскрипцию (как читать), перевод на русский и пояснение — когда и зачем читать это дуа.</p>
+        </div>
+        <div id="duaGrid" class="dua-grid"></div>
+    </section>
+
+    <!-- ВКЛАДКА: ВИКТОРИНА -->
+    <section id="tab-questions" class="tab-content">
+        <div class="section-header">
+            <h2>❓ Исламская викторина</h2>
+            <p>Проверьте свои знания об Исламе в увлекательной игре!</p>
+            <div class="section-stats">
+                <span>📚 <strong>50+</strong> вопросов</span>
+                <span>⭐ 3 уровня сложности</span>
+                <span>🏆 получайте награды</span>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <div class="quiz-settings" id="quizSettings">
+                <h3>⚙️ Настройте викторину</h3>
+                <div class="settings-row">
+                    <div class="setting-item">
+                        <label>📊 Количество вопросов</label>
+                        <div class="question-count-selector">
+                            <button onclick="setQuestionCount(5)" class="count-btn" data-count="5">5</button>
+                            <button onclick="setQuestionCount(10)" class="count-btn active" data-count="10">10</button>
+                            <button onclick="setQuestionCount(15)" class="count-btn" data-count="15">15</button>
+                            <button onclick="setQuestionCount(20)" class="count-btn" data-count="20">20</button>
+                            <button onclick="setQuestionCount(30)" class="count-btn" data-count="30">30</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>⭐ Уровень сложности</label>
+                        <div class="difficulty-selector">
+                            <button onclick="setDifficulty('easy')" class="diff-btn active" data-diff="easy">🌱 Лёгкий</button>
+                            <button onclick="setDifficulty('medium')" class="diff-btn" data-diff="medium">📖 Средний</button>
+                            <button onclick="setDifficulty('hard')" class="diff-btn" data-diff="hard">🏛️ Сложный</button>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="startQuiz()" class="start-quiz-btn">🚀 Начать викторину</button>
+            </div>
+
+            <div id="quizGame" style="display: none;">
+                <div class="quiz-header">
+                    <div class="quiz-progress-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="progress-bg"/>
+                            <circle cx="50" cy="50" r="45" class="progress-fill" id="progressCircle"/>
+                            <text x="50" y="55" text-anchor="middle" class="progress-text" id="progressText">0%</text>
+                        </svg>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📌</span>
+                            <span class="stat-label">Вопрос</span>
+                            <span class="stat-value" id="quizProgress">1/10</span>
+                        </div>
+                        <div class="stat-item correct-stat">
+                            <span class="stat-icon">✅</span>
+                            <span class="stat-label">Правильно</span>
+                            <span class="stat-value" id="quizScore">0</span>
+                        </div>
+                        <div class="stat-item wrong-stat">
+                            <span class="stat-icon">❌</span>
+                            <span class="stat-label">Неправильно</span>
+                            <span class="stat-value" id="quizWrong">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⭐</span>
+                            <span class="stat-label">Сложность</span>
+                            <span class="stat-value" id="quizDifficultyDisplay">🌱 Лёгкий</span>
+                        </div>
+                    </div>
+                    <button onclick="exitQuiz()" class="exit-quiz-btn">✕</button>
+                </div>
+
+                <div id="quizContainer">
+                    <div class="quiz-card">
+                        <div class="quiz-question-number" id="questionNumber">Вопрос 1</div>
+                        <div class="quiz-question" id="questionText">Загрузка вопроса...</div>
+                        <div class="quiz-options" id="optionsContainer"></div>
+                        <div class="quiz-feedback" id="feedbackContainer">
+                            <p id="feedbackText"></p>
+                        </div>
+                        <div class="quiz-controls">
+                            <button onclick="nextQuestion()" id="nextBtn" disabled>
+                                <span>Следующий вопрос</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-results" id="resultsContainer" style="display: none;">
+                <div class="results-card">
+                    <div class="results-emoji" id="resultEmoji">🏆</div>
+                    <h2 id="resultTitle">Отличный результат!</h2>
+                    <div class="results-stats">
+                        <div class="result-item correct">
+                            <span class="result-icon">✅</span>
+                            <span class="result-label">Правильно</span>
+                            <span class="result-value" id="finalCorrect">0</span>
+                        </div>
+                        <div class="result-item wrong">
+                            <span class="result-icon">❌</span>
+                            <span class="result-label">Неправильно</span>
+                            <span class="result-value" id="finalWrong">0</span>
+                        </div>
+                        <div class="result-item total">
+                            <span class="result-icon">📊</span>
+                            <span class="result-label">Всего</span>
+                            <span class="result-value" id="finalTotal">0</span>
+                        </div>
+                        <div class="result-item difficulty-result">
+                            <span class="result-icon">⭐</span>
+                            <span class="result-label">Сложность</span>
+                            <span class="result-value" id="finalDifficulty">🌱</span>
+                        </div>
+                    </div>
+                    <div class="result-message" id="resultMessage"></div>
+                    <div class="result-actions">
+                        <button onclick="restartQuiz()" class="restart-btn">🔄 Пройти ещё раз</button>
+                        <button onclick="showTab('tajweed')" class="learn-btn">📚 Учить таджвид</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВКЛАДКА: НАСТРОЙКИ -->
+    <section id="tab-settings" class="tab-content">
+        <div class="settings-grid">
+            <div class="settings-card">
+                <h2>⚙️ Настройки</h2>
+                <div class="setting-group">
+                    <label>🔤 Размер арабского текста</label>
+                    <div class="range-wrapper">
+                        <input type="range" id="fontSize" min="16" max="40" value="24">
+                        <span id="fontSizeLabel">24px</span>
+                    </div>
+                    <span class="setting-hint">Изменяет размер арабского текста во всех разделах</span>
+                </div>
+                <div class="setting-group">
+                    <label>🌙 Режим чтения</label>
+                    <button onclick="toggleTheme()" id="themeBtn" class="theme-toggle-btn">🌙 Ночной режим</button>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>🕌 О сайте</h3>
+                <p>Обучение правильному чтению Корана и основам Ислама.</p>
+                <p>🤲 Да смилостивится Аллах над нами.</p>
+                <div class="info-features">
+                    <span>📖 11 правил таджвида</span>
+                    <span>🚦 8 знаков вакфа</span>
+                    <span>🔤 28 букв алфавита</span>
+                    <span>🔢 арабские цифры</span>
+                    <span>🌟 99 имён Аллаха</span>
+                    <span>🤲 20+ дуа Пророка</span>
+                    <span>❓ 50+ вопросов</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПОЛНОЭКРАННОГО ПРОСМОТРА -->
+    <div id="fullscreenModal" class="modal" onclick="closeFullscreen()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeFullscreen()">✕</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>🕌 Сделано с любовью к Исламу</p>
+            </div>
+            <div class="footer-center">
+                <span>📖 Коран Онлайн</span>
+                <span>•</span>
+                <span>🤲 Да смилостивится Аллах</span>
+            </div>
+            <div class="footer-right">
+                <span class="author-credit">👑 Разработчик: <strong>ОБИЖЕНКА</strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
